@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- *完成对score表的数据操作类
+ *对score表的数据操作类
  */
 public class ScoreDao {
 	//实现按sid和cid查找成绩
