@@ -176,18 +176,17 @@ public class StudentDao {
 		return flag;
 	}
 	
-	//更新学生表(未完成)
-	public int updataStudent(ScoreDto _sd) {
+	//更新学生表_学生名字
+	public int updataStudentSname(StudentDto _sd) {
 		int flag=0;
 		Connection conn = null;
 		PreparedStatement prep = null;
 		try {
 			conn = DataAccess.getConnection();
 			prep = conn.prepareStatement
-	("update score set score =? where sid=? and cid=?");
-			prep.setInt(1, _sd.getScore());
+	("update student set sname =? where sid=?");
+			prep.setString(1, _sd.getSname());
 			prep.setString(2, _sd.getSid());
-			prep.setString(3, _sd.getCid());
 			prep.executeUpdate();
 			flag=1;
 		} catch (SQLException e) {
@@ -197,4 +196,47 @@ public class StudentDao {
 		}
 		return flag;
 	}
+	
+	
+	//更新学生表_学生密码
+		public int updataStudentPassword(StudentDto _sd) {
+			int flag=0;
+			Connection conn = null;
+			PreparedStatement prep = null;
+			try {
+				conn = DataAccess.getConnection();
+				prep = conn.prepareStatement
+		("update student set password =? where sid=?");
+				prep.setString(1, _sd.getPassword());
+				prep.setString(2, _sd.getSid());
+				prep.executeUpdate();
+				flag=1;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				DataAccess.closeConnection(conn, prep);
+			}
+			return flag;
+		}
+		
+		//更新学生表_学生权限
+				public int updataStudentSuperuser(StudentDto _sd) {
+					int flag=0;
+					Connection conn = null;
+					PreparedStatement prep = null;
+					try {
+						conn = DataAccess.getConnection();
+						prep = conn.prepareStatement
+				("update student set superuser =? where sid=?");
+						prep.setInt(1, _sd.getSuperuser());
+						prep.setString(2, _sd.getSid());
+						prep.executeUpdate();
+						flag=1;
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						DataAccess.closeConnection(conn, prep);
+					}
+					return flag;
+				}
 }

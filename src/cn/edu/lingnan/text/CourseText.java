@@ -13,6 +13,7 @@ public class CourseText {
 		CourseDto c =new CourseDto();
 		c.setCid("c05");
 		c.setCname("javaweb5");
-		System.out.println(cd.insertInfoToCourse(c));
+//		System.out.println(cd.insertInfoToCourse(c));
+		System.out.println(cd.updataCourse(c));
 	}
 }

@@ -95,18 +95,18 @@ public class CourseDao {
 		return flag;
 	}
 	
-	//更新课程表（未完成）
-	public int updataScore(ScoreDto _sd) {
+	//更新课程表
+	//cid是主键
+	public int updataCourse(CourseDto _sd) {
 		int flag=0;
 		Connection conn = null;
 		PreparedStatement prep = null;
 		try {
 			conn = DataAccess.getConnection();
 			prep = conn.prepareStatement
-	("update score set score =? where sid=? and cid=?");
-			prep.setInt(1, _sd.getScore());
-			prep.setString(2, _sd.getSid());
-			prep.setString(3, _sd.getCid());
+	("update course set cname =? where cid=?");
+			prep.setString(1, _sd.getCname());
+			prep.setString(2, _sd.getCid());
 			prep.executeUpdate();
 			flag=1;
 		} catch (SQLException e) {
