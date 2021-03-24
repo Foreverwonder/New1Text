@@ -3,6 +3,9 @@ package cn.edu.lingnan.text;
 import cn.edu.lingnan.dao.CourseDao;
 import cn.edu.lingnan.dto.CourseDto;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class CourseText {
 	public static void main(String[] args) {
 		CourseDao cd =new CourseDao();

@@ -7,11 +7,13 @@ import java.sql.SQLException;
 
 import com.sun.net.httpserver.Authenticator.Result;
 import cn.edu.lingnan.dto.CourseDto;
+import cn.edu.lingnan.dto.ScoreDto;
+import cn.edu.lingnan.util.DataAccess;
 /**
  * 对课表course的操作类
  */
 public class CourseDao {
-	//根据cid找cname
+	//通过cid找name
 	public String findCnameByCid(String _cid) {
 		String _cname=null;
 		Connection conn = null;
@@ -33,7 +35,7 @@ public class CourseDao {
 				_cname=rs.getString("cname");
 //				System.out.println(rs.getString("cname"));
 		} catch (ClassNotFoundException e) {
-			System.out.println("?ж????????????MySql????JAR??????????.....");
+			System.out.println("检查Mysql的jar导入是否正确");
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -56,7 +58,7 @@ public class CourseDao {
 	}
 	
 
-	//对课程表插入学生信息
+	//课程表插入一条信息
 	public int insertInfoToCourse(CourseDto _cd) {
 		int flag=0;
 		Connection conn =null;
@@ -74,7 +76,7 @@ public class CourseDao {
 			System.out.println("i="+i);
 			flag=1;
 		}catch (ClassNotFoundException e) {
-			System.out.println("?ж????????????MySql????JAR??????????.....");
+			System.out.println("检查Mysql的jar导入是否正确");
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,6 +91,28 @@ public class CourseDao {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}
+		return flag;
+	}
+	
+	//更新课程表（未完成）
+	public int updataScore(ScoreDto _sd) {
+		int flag=0;
+		Connection conn = null;
+		PreparedStatement prep = null;
+		try {
+			conn = DataAccess.getConnection();
+			prep = conn.prepareStatement
+	("update score set score =? where sid=? and cid=?");
+			prep.setInt(1, _sd.getScore());
+			prep.setString(2, _sd.getSid());
+			prep.setString(3, _sd.getCid());
+			prep.executeUpdate();
+			flag=1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DataAccess.closeConnection(conn, prep);
 		}
 		return flag;
 	}
