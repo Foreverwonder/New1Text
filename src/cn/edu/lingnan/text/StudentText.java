@@ -8,7 +8,7 @@ import cn.edu.lingnan.dto.StudentDto;
 public class StudentText {
 		public static void main(String[] args) {
 			StudentDao sd=new StudentDao();
-//			System.out.println(sd.findStudentByNameAndPassword("zhangsan2","123"));
+			System.out.println(sd.findStudentByNameAndPassword("zhangsan2","123"));
 //			Vector<StudentDto> v=new Vector<StudentDto>();
 //			v=sd.findAllStudent();
 //			for(StudentDto s:v)
