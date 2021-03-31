@@ -239,4 +239,88 @@ public class StudentDao {
 					}
 					return flag;
 				}
+
+
+
+
+				//删除一条学生记录
+	public boolean deleteStudent(String _sid) throws SQLException {
+		boolean flag =false;
+		Connection conn=null;
+		PreparedStatement prep1=null;
+		PreparedStatement prep2=null;
+		Statement stat =null;
+		ResultSet rs1=null;
+		ResultSet rs2=null;
+		try{
+			conn=DataAccess.getConnection();
+			//----------通过学生编号找到待删除的课程，存入动态数组中------------------------
+			Vector<String> v=new Vector <String>();
+			String sql0=
+					"select * from score where sid=?";
+			prep1 =conn.prepareStatement(sql0);
+			prep1.setString(1,_sid);
+			rs1=prep1.executeQuery();
+			System.out.println("567567");
+
+			while(rs1.next()) {
+				//这里已经找到s01同学所选的课程编号，C01，C02
+				String cid=rs1.getString("cid");
+				System.out.println(cid);
+				//找一下这个课程编号对应多少条记录，如果只有一条，就删除对应的课程编号
+				String sql01=
+						"select count(*) as num from score where cid=? ";
+
+
+
+				prep2= conn.prepareStatement(sql01);
+				prep2.setString(1,cid);
+				rs2= prep2.executeQuery();
+				rs2.next();
+				if(Integer.parseInt(rs2.getString("num"))==1){
+					System.out.println("要删除的编号："+cid);
+					//找到了，用不了，先存起来
+					v.add(cid);
+				}
+			}
+			prep1.close();
+			prep2.close();
+			rs1.close();
+			rs2.close();
+			//-----------------------------------------------------------------------------
+			conn.setAutoCommit(false);
+			//先删分数表
+			String	sql1=
+					"delete from score where sid=?";
+			prep1= conn.prepareStatement(sql1);
+			prep1.setString(1,_sid);
+			prep1.executeUpdate();
+			prep1.close();
+			//再删学生表
+			String sql2=
+					"delete from student where sid=?";//------------------------
+			prep1= conn.prepareStatement(sql2);
+			prep1.setString(1,_sid);
+			prep1.executeUpdate();
+			//最后删课程表
+			for(String s:v){
+				stat= conn.createStatement();
+				stat.executeUpdate
+						("delete from course where cid= '"+s+"'");
+			}
+			conn.commit();
+			conn.setAutoCommit(true);
+			flag=true;
+
+
+		} catch (SQLException e) {
+			try{
+			conn.rollback();
+			} catch (SQLException e1) {e1.printStackTrace();
+		} finally {
+			DataAccess.closeConnection(conn,prep1,rs1);
+		}
+
+	}return flag;
+}
 }
