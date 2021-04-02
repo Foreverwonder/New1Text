@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class BlobClobTest {
+public class trashBin_BlobClobTest_1 {
 
 	public static void main(String[] args) throws SQLException, IOException {
 		Connection conn = null;

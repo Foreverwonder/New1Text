@@ -23,6 +23,6 @@ public class StudentText {
 //			System.out.println(sd.updataStudentSname(s));
 //			System.out.println(sd.updataStudentPassword(s));
 //			System.out.println(sd.updataStudentSuperuser(s));
-			System.out.println(sd.deleteStudent("s01"));
+			System.out.println(sd.deleteStudent("s05"));
 		}
 }
