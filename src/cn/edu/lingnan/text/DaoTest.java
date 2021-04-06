@@ -1,6 +1,8 @@
 package cn.edu.lingnan.text;
 /**
- * 完整功能，仅包括查找所有学生，添加学生，添加课程
+ * 完整功能：查找所有学生，查找所有课程
+ *          添加学生，添加课程
+ *          删除学生，删除课程
  */
 
 import cn.edu.lingnan.dao.CourseDao;
@@ -117,7 +119,6 @@ public class DaoTest {
             System.out.println("----1更新用户--2更新课程--3更新成绩--4回到上一级--");
         }
     }
-
     //---------------------------删除二级菜单------------------------------------------
     public static void delete() throws SQLException {
         System.out.println("------------Please select the corresponding number to test（Delete Menu of 2th）------------- ");
@@ -127,7 +128,7 @@ public class DaoTest {
             if (str.equals("1")) {
                 deleteStudent();
             } else if (str.equals("2")) {
-//                deleteCourse();
+                deleteCourse();
             } else if (str.equals("3")) {
 //                deleteScore();
             } else if (str.equals("4")) {
@@ -158,13 +159,17 @@ public class DaoTest {
         System.out.println("--------------------------------------------");
     }
 
-    //----------------------------------------------------
+    //查找所有课程（改）
     public static void findAllCourse() {
-//        Vector<CourseDto> v=new Vector<>();
-//        v=cd.findCnameByCid();
-        //CourseDao里面并没有写findAllCourse。。。。
+        Vector<CourseDto> v = new Vector<>();
+        v = cd.findAllCourse();
+        System.out.println("-----------所有学生信息如下----------------");
+        System.out.println("课程编号 \t课程名");
+        for (CourseDto s : v) {
+            System.out.println(" \t" +s.getCid() + " \t" + s.getCname());
+        }
+        System.out.println("--------------------------------------------");
     }
-
     //----------------------------------------------------
     public static void findAllScore() {
 //        Vector<CourseDto> v=new Vector<>();
@@ -173,7 +178,7 @@ public class DaoTest {
 //-------------------------------------
 
 
-    //--------增加（三级菜单）---------------------------
+    //--------增加学生（三级菜单）---------------------------
     public static void insertStudent() {
         StudentDto s = new StudentDto();
         System.out.println("请输入需要新增的学生ID：");
@@ -206,7 +211,7 @@ public class DaoTest {
 
     }
 
-    //-----------------------删除（三级菜单）------------------------------------------
+    //-----------------------删除学生（三级菜单）------------------------------------------
     public static void deleteStudent() throws SQLException {
         System.out.println("请输入要删除的学生ID：");
         String _sid=scanf.nextLine();
@@ -217,6 +222,14 @@ public class DaoTest {
             System.out.println("删除学生信息失败");
     }
 
-
-
+    //-----------------------删除课程（三级菜单）------------------------------------------
+    public static void deleteCourse() throws SQLException {
+        System.out.println("请输入要删除的课程ID：");
+        String _cid=scanf.nextLine();
+        if(cd.deleteCourse(_cid)==true){
+            System.out.println("删除课程信息成功");
+        }
+        else
+            System.out.println("删除课程信息失败");
+    }
 }
