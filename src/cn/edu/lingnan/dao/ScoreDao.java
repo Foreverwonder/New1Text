@@ -6,14 +6,43 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Vector;
 
 import cn.edu.lingnan.dto.ScoreDto;
+import cn.edu.lingnan.dto.StudentDto;
 import cn.edu.lingnan.util.DataAccess;
 
 /**
  * 对score表的数据操作类
  */
 public class ScoreDao {
+	//查找所有成绩
+	public Vector<ScoreDto> findAllScore() {
+		Vector<ScoreDto> v=new Vector<ScoreDto>();
+		Connection conn = null;
+		PreparedStatement prep = null;
+		ResultSet rs = null;
+		try {
+			conn = DataAccess.getConnection();
+			String sql = "select * from score";
+			prep = conn.prepareStatement(sql);
+			rs = prep.executeQuery();
+			while (rs.next()) {
+				ScoreDto s = new ScoreDto();
+				s.setSid(rs.getString("sid"));
+				s.setCid(rs.getString("cid"));
+				v.add(s);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DataAccess.closeConnection(conn, prep, rs);
+		}
+		return v;
+	}
+
+
 	// 实现按sid和cid查找成绩
 	public int findScoreBySidAndCid(String _sid, String _cid) {
 		int _score = 0;

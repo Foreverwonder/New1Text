@@ -16,6 +16,44 @@ import cn.edu.lingnan.util.DataAccess;
  * 完成对学生表的数据操作类
  */
 public class StudentDao {
+    //通过sid找学生
+
+    //通过cid找name（改）
+    public String findStudentBySid(String _sid) {
+        String _sname = null;
+        Connection conn = null;
+        PreparedStatement prep = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+//            conn = DriverManager.getConnection
+//                    ("jdbc:mysql://localhost:3306/school", "root", "123");
+            conn = DataAccess.getConnection();
+            String sql = "select * from student where sid=?";
+            prep = conn.prepareStatement(sql);
+            prep.setString(1, _sid);
+            rs = prep.executeQuery();
+            if (rs.next())
+                _sname = rs.getString("sname");
+        } catch (ClassNotFoundException e) {
+            System.out.println("检查Mysql的jar导入是否正确");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null)
+                    rs.close();
+                if (prep != null)
+                    prep.close();
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return _sname;
+    }
     // 实现按用户名和密码进行查找
     public boolean findStudentByNameAndPassword(String _sname, String _password) {
         boolean flag = false;
