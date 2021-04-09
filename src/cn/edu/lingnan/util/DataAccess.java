@@ -1,12 +1,10 @@
 package cn.edu.lingnan.util;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 public class DataAccess {
 	// 返回数据库的连接
 	public static Connection getConnection() {
@@ -23,6 +21,8 @@ public class DataAccess {
 		}
 		return conn;
 	}
+
+
 
 	// 关闭数据库的连接
 	public static void closeConnection(Connection conn, Statement stat, ResultSet rs) {
@@ -50,6 +50,7 @@ public class DataAccess {
 			e.printStackTrace();
 		}
 	}
+	//关闭数据库连接
 	public static void closeConnection(Connection conn, PreparedStatement prep) {
 		try {
 			if (prep!= null)
@@ -60,6 +61,7 @@ public class DataAccess {
 			e.printStackTrace();
 		}
 	}
+	//关闭数据库连接
 	public static void closeConnection(Connection conn, Statement stat) {
 		try {
 			if (stat!= null)

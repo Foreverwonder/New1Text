@@ -3,10 +3,14 @@ package cn.edu.lingnan.text;
  * 完整功能：查找所有学生，查找所有课程、按sid和cid查成绩
  * 添加学生，添加课程、按sid查学生
  * 删除学生，删除课程、按cid查课程
+ * 几个方法的DataAccess的关闭方法有待优化
+ *
  * <p>
  * 没写: ScoreDao（updataScore）
  * StudentDao(updataStudentSname、updataStudentPassword、updataStudentSuperuser）
  * CourseDao(updataCourse)
+ *
+ * 几个方法的DataAccess的连接数据库方法，关闭方法有待优化
  */
 
 import cn.edu.lingnan.dao.CourseDao;

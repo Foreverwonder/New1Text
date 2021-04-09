@@ -17,8 +17,6 @@ import cn.edu.lingnan.util.DataAccess;
  */
 public class StudentDao {
     //通过sid找学生
-
-    //通过cid找name（改）
     public String findStudentBySid(String _sid) {
         String _sname = null;
         Connection conn = null;
@@ -54,7 +52,7 @@ public class StudentDao {
         }
         return _sname;
     }
-    // 实现按用户名和密码进行查找
+    // 实现按用户名和密码进行查找，存在即返回1。
     public boolean findStudentByNameAndPassword(String _sname, String _password) {
         boolean flag = false;
         Connection conn = null;

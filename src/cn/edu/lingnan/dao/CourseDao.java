@@ -110,7 +110,7 @@ public class CourseDao {
     }
 
 
-    //删除课程表(若该cid在score表中只有1条或0条记录，则直接删除，否则不删除)
+    //删除课程表(若该cid在score表中只有0条记录，则直接删除，否则不删除)
     public boolean deleteCourse(String _cid) throws SQLException {
         boolean flag = false;
         Connection conn = null;
@@ -129,7 +129,7 @@ public class CourseDao {
             prep1.setString(1, _cid);
             rs1 = prep1.executeQuery();
             rs1.next();
-            if (Integer.parseInt(rs1.getString("num")) <= 1) {
+            if (Integer.parseInt(rs1.getString("num")) == 0) {
 //                System.out.println("要删除的课程号：" + _cid);
                 String sql1 = "delete from course where cid=?";
                 prep1 = conn.prepareStatement(sql1);
