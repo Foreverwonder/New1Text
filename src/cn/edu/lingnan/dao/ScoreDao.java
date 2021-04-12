@@ -31,6 +31,7 @@ public class ScoreDao {
 				ScoreDto s = new ScoreDto();
 				s.setSid(rs.getString("sid"));
 				s.setCid(rs.getString("cid"));
+				s.setScore(rs.getInt("score"));
 				v.add(s);
 			}
 
