@@ -3,9 +3,9 @@
 xsi:noNamespaceSchemaLocation="database.conf.xsd">
 <driver>com.mysql.jdbc.Driver</driver>
 <url>
-jdbc:mysq1://localhost:3306/school?
+jdbc:mysql://localhost:3306/school?
 useUnicode=true&amp;characterEncoding=gb2312
 </url>
 <user>root</user>
-<password>root</password>
+<password>123</password>
 </datasource>
