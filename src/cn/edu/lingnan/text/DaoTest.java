@@ -141,7 +141,7 @@ public class DaoTest {
             } else if (str.equals("2")) {
                 deleteCourse();
             } else if (str.equals("3")) {
-//                deleteScore();
+                deleteScore();
             } else if (str.equals("4")) {
                 break;
             } else {
@@ -415,5 +415,15 @@ public class DaoTest {
             System.out.println("删除课程信息成功");
         } else
             System.out.println("删除课程信息失败");
+    }
+    public static void deleteScore() throws SQLException {
+        System.out.println("请输入要删除的成绩的SID：");
+        String _sid = scanf.nextLine();
+        System.out.println("请输入要删除的成绩的CID：");
+        String _cid = scanf.nextLine();
+        if (scd.deleteScore(_sid,_cid) == true) {
+            System.out.println("删除成绩信息成功，删除的历史记录将暂存在xscore表");
+        } else
+            System.out.println("删除成绩信息失败");
     }
 }

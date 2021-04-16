@@ -48,14 +48,25 @@ public class ScoreDao {
         boolean flag = false;
         Connection conn = null;
         PreparedStatement prep1 = null;
+        PreparedStatement prep2 = null;
         try {
             conn = DataAccess.getConnection();
+            conn.setAutoCommit(false);
+            String sql1 =
+                    "insert into xscore(xsid,xcid,xscore) select sid,cid,score from score where sid=? and cid=? ";
+            prep2 = conn.prepareStatement(sql1);
+            prep2.setString(1, _sid);
+            prep2.setString(2, _cid);
+            prep2.executeUpdate();
+
             String sql0 =
-                    "delete from score where _sid=? and _cid=?";
+                    "delete from score where sid=? and cid=?";
             prep1 = conn.prepareStatement(sql0);
             prep1.setString(1, _sid);
             prep1.setString(2, _cid);
             prep1.executeUpdate();
+            conn.commit();
+            conn.setAutoCommit(true);
             flag = true;
         } catch (SQLException sqlException) {
             sqlException.printStackTrace();
