@@ -172,6 +172,8 @@ public class DaoTest {
                 if (sd.findStudentByNameAndPassword(_sname, _password) == true) {
                     System.out.println("该学生在本校存在");
                 }
+                else
+                    System.out.println("该学生不存在");
             } else if (str.equals("2")) {
                 String _sid = null;
                 System.out.println("请输入需要查找的学生ID：");
